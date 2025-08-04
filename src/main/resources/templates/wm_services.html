@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		  <meta charset="UTF-8">
+		  <meta name="description" content="Book expert AC repair and installation services in Yellamanchili. Affordable prices, quick service, and trusted technicians. Call now!">
+
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <!-- Use Thymeleaf's resource resolver for linked CSS/JS and static assets -->
+		  <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}">
+		  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js}"></script>
+		  <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+		  <link rel="stylesheet" th:href="@{/css/style.css}">
+		  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+		  <title>Best AC Repair Services Yellamanchili CoolTech</title>
+
+
+	</head>
+<body>
+	<div th:replace="~{fragments/header :: header}"></div>
+	    <div class="grid-container">
+	        <div class="product-box" th:each="service : ${wmservices}">
+	            <img th:src="@{${service.image}}" alt="Service Image" />
+	            <div class="caption" th:text="${service.servicename}">Service Name</div>
+	            <div class="price">₹<span th:text="${service.price}">0</span></div>
+	            <form th:action="@{/add-to-cart}" method="post">
+	                <input type="hidden" name="servicename" th:value="${service.servicename}" />
+	                <input type="hidden" name="price" th:value="${service.price}" />
+	                <button type="submit" class="book-btn">Book Now</button>
+	            </form>
+	        </div>
+	    </div>
+</body>
+</html>

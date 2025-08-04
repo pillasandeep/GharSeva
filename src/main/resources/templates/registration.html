@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Customer Registration</title>
+    <style>
+		* {
+		    box-sizing: border-box;
+		    margin: 0; padding: 0;
+		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		body, html {
+		    height: 100%;
+		    background: linear-gradient(135deg, #ece9e6 0%, #b7976b 100%);
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+
+		form {
+		    background: rgba(255, 255, 255, 0.25);
+		    border-radius: 15px;
+		    padding: 30px 25px;
+		    width: 350px;
+		    box-shadow: 0 8px 32px rgba(119, 85, 60, 0.20);
+		    backdrop-filter: blur(10px);
+		    -webkit-backdrop-filter: blur(10px);
+		    border: 1px solid rgba(190, 160, 125, 0.28);
+		    color: #6F4E37;
+		    animation: fadeSlideIn 1s ease forwards;
+		}
+
+		@keyframes fadeSlideIn {
+		    from {
+		        opacity: 0;
+		        transform: translateY(-30px);
+		    }
+		    to {
+		        opacity: 1;
+		        transform: translateY(0);
+		    }
+		}
+
+		h2 {
+		    text-align: center;
+		    margin-bottom: 20px;
+		    color: #6F4E37;
+		    font-weight: 700;
+		    text-shadow: 0 0 10px #fff6;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+		    width: 100%;
+		    padding: 12px 15px;
+		    margin-bottom: 15px;
+		    border: none;
+		    border-radius: 10px;
+		    background: rgba(255,255,255,0.7);
+		    color: #6F4E37;
+		    font-size: 15px;
+		    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+		    animation: inputFadeIn 1.2s ease forwards;
+		    outline: none;
+		}
+
+		input[type="text"]::placeholder,
+		input[type="password"]::placeholder {
+		    color: #bda188;
+		    opacity: 0.8;
+		}
+
+		input[type="text"] { animation-delay: 0.2s; }
+		input[type="password"] { animation-delay: 0.4s; }
+
+		input:focus {
+		    background: #fff;
+		    box-shadow: 0 0 8px 2px #b7976b80;
+		    color: #4e342e;
+		    transform: scale(1.05);
+		}
+
+		@keyframes inputFadeIn {
+		    from {
+		        opacity: 0;
+		        transform: translateY(20px);
+		    }
+		    to {
+		        opacity: 1;
+		        transform: translateY(0);
+		    }
+		}
+
+		.error {
+		    color: #b12e2e;
+		    font-size: 13px;
+		    margin-bottom: 10px;
+		    text-align: center;
+		    animation: errorFadeIn 1.5s ease forwards;
+		}
+		@keyframes errorFadeIn {
+		    from { opacity: 0; }
+		    to { opacity: 1; }
+		}
+
+		button {
+		    width: 100%;
+		    padding: 12px 0;
+		    border: none;
+		    border-radius: 10px;
+		    background: linear-gradient(90deg, #a47551, #6F4E37 70%);
+		    color: #fff;
+		    font-size: 16px;
+		    font-weight: 600;
+		    cursor: pointer;
+		    transition: background 0.3s, transform 0.2s;
+		    box-shadow: 0 4px 12px #b7976b55;
+		    animation: buttonFadeIn 1.4s ease forwards;
+		}
+
+		@keyframes buttonFadeIn {
+		    from {
+		        opacity: 0;
+		        transform: translateY(20px);
+		    }
+		    to {
+		        opacity: 1;
+		        transform: translateY(0);
+		    }
+		}
+
+		button:hover {
+		    background: linear-gradient(90deg, #6F4E37, #a47551 70%);
+		    transform: scale(1.05);
+		}
+
+		form a {
+		    display: block;
+		    text-align: center;
+		    margin-top: 12px;
+		    color: #6F4E37;
+		    opacity: 0.85;
+		    text-decoration: none;
+		    font-size: 15px;
+		    transition: color 0.2s;
+		}
+
+		form a:hover {
+		    color: #b7976b;
+		}
+		/* Make form width responsive */
+		form {
+		    width: 90%;
+		    max-width: 400px; /* keeps max width on bigger screens */
+		    margin: 0 15px; /* space on sides on small screens */
+		}
+
+		/* Input and button width already 100%, just ensure no overflow */
+
+		/* Responsive font sizes (optional but recommended) */
+		h2 {
+		    font-size: 1.6rem; /* slightly larger on desktop */
+		}
+
+		@media (max-width: 480px) { 
+		    /* for small devices/mobile */
+		    
+		    h2 {
+		        font-size: 1.3rem;
+		    }
+
+		    input[type="text"],
+		    input[type="password"],
+		    button {
+		        font-size: 14px;
+		        padding: 10px 12px; /* slightly smaller padding for mobiles */
+		    }
+
+		    form {
+		        padding: 20px 15px;
+		    }
+
+		    form a {
+		        font-size: 14px;
+		    }
+		}
+
+    </style>
+</head>
+<body>
+
+    <form th:action="@{/register}" th:object="${customer}" method="post">
+        <h2>Register</h2>
+
+        <input type="text" th:field="*{name}" placeholder="Name" />
+       
+
+        <input type="text" th:field="*{phonenumber}" placeholder="Phone Number" />
+       
+
+        <input type="password" th:field="*{password}" placeholder="Password" />
+
+
+        <button type="submit">Register</button>
+		<a th:href="@{/login1}">Do have Account ? </a>
+    </form>
+	
+</body>
+</html>

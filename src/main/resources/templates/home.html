@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Book expert AC repair and installation services in Yellamanchili. Affordable prices, quick service, and trusted technicians. Call now!">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Use Thymeleaf's resource resolver for linked CSS/JS and static assets -->
+  <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}">
+  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js}"></script>
+  <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+  <title>Best AC Repair Services Yellamanchili CoolTech</title>
+  <style>
+	 
+	body {
+	  margin: 0;
+	  padding: 0;
+	  padding-top: 100px;
+	  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+
+	/* Service cards flex grid */
+	.grid-container {
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: center;
+	  gap: 28px;
+	  margin-top: 100px;
+	  margin: 44px 0 30px 0;
+	}
+
+	.product-box {
+	  background: rgba(255,255,255,0.90);
+	  border-radius: 18px;
+	  box-shadow: 0 4px 20px rgba(110,120,180,0.09);
+	  padding: 22px;
+	  max-width: 270px;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  transition: transform 0.15s, box-shadow 0.18s;
+	}
+
+	.product-box:hover {
+	  transform: translateY(-8px) scale(1.03);
+	  box-shadow: 0 10px 30px rgba(80,90,160,0.14);
+	}
+
+	.product-box img {
+	  width: 140px;
+	  height: 140px;
+	  border-radius: 14px;
+	  object-fit: cover;
+	  margin-bottom: 21px;
+	  background: #f0f0f0;
+	  box-shadow: 0 1px 7px rgba(0,0,0,0.08);
+	}
+
+	.product-box button {
+	  width: 100%;
+	  margin-top: 8px;
+	  font-size: 1.1rem;
+	  padding: 10px;
+	  border-radius: 7px;
+	  font-weight: 600;
+	}
+
+	@media (max-width: 900px) {
+	  .grid-container { gap: 18px; }
+	  .product-box { max-width: 48vw; }
+	}
+
+	@media (max-width: 650px) {
+		/* Existing header styles (left as is)... */
+
+		/* Responsive fixes */
+		@media (max-width: 650px) {
+		  .header {
+		    flex-direction: column;       /* stack elements vertically */
+		    align-items: flex-start;      /* align left so content doesn't stretch */
+		    padding: 16px 20px;           /* reduce side padding */
+		    gap: 12px;                    /* add spacing between stacked items */
+		  }
+
+		  /* Group logo, title, phone together */
+		  .logo-container {
+		    width: 100%;
+		    display: flex;
+		    flex-wrap: wrap;
+		    align-items: center;
+		    justify-content: flex-start;
+		    gap: 12px;
+		    margin-bottom: 10px;
+		  }
+
+		  .site-title {
+		    font-size: 1.1rem;            /* reduce font size to fit */
+		  }
+
+		  .phone-highlight {
+		    margin-left: 0;
+		    font-size: 1rem;
+		    padding: 6px 16px;
+		    white-space: nowrap; /* prevent phone number breaking */
+		  }
+
+		  /* Tabs should be full width and wrap nicely */
+		  .tabs {
+		    width: 100%;
+		    display: flex;
+		    justify-content: flex-start;
+		    gap: 10px;
+		    flex-wrap: wrap;
+		  }
+
+		  .my-button {
+		    flex-shrink: 1;
+		    font-size: 0.95rem;
+		    padding: 8px 12px;
+		    white-space: nowrap;
+		  }
+		}
+
+	}
+	.about-section {
+	  max-width: 900px;
+	  margin: 0 auto 48px auto;
+	  background: #ffffff;
+	  padding: 32px 24px;
+	  border-radius: 20px;
+	  box-shadow: 0 5px 28px rgba(110,120,180,0.15);
+	  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	  color: #333333;
+	  line-height: 1.55;
+	}
+
+	.about-section h2 {
+	  font-size: 2rem;
+	  font-weight: 700;
+	  color: #0056b3;
+	  margin-bottom: 20px;
+	  text-align: center;
+	}
+
+	.about-section p {
+	  font-size: 1.15rem;
+	  max-width: 700px;
+	  margin: 0 auto;
+	  text-align: center;
+	  font-weight: 500;
+	  margin-bottom: 0;
+	}  /* Container for features section */
+  .features-container {
+    max-width: 1200px;
+    margin: 40px auto 60px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  /* Individual feature card */
+  .features-container > div {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(101, 115, 134, 0.15);
+    padding: 30px 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+
+  .features-container > div:hover {
+    box-shadow: 0 20px 40px rgba(101, 115, 134, 0.25);
+    transform: translateY(-8px);
+  }
+
+  /* Feature title */
+  .features-container h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2563eb; /* deep blue */
+    margin-bottom: 16px;
+    letter-spacing: 0.03em;
+    /* Slight text shadow for subtle depth */
+    text-shadow: 0 1px 1px rgba(38, 54, 77, 0.12);
+  }
+
+  /* Feature description */
+  .features-container p {
+    font-size: 1rem;
+    color: #4a5568; /* medium gray */
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* Responsive adjustments */
+
+  @media (max-width: 768px) {
+    .features-container {
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .features-container {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .features-container h3 {
+      font-size: 1.3rem;
+    }
+
+    .features-container p {
+      font-size: 0.94rem;
+    }  
+  }
+  /* Footer main container */
+  .site-footer {
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 40px 20px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Footer grid container */
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  /* Footer subsections */
+  /*.footer-links, .companys, .footer-contact, .footer-about {*/
+    /* Keep sections visually balanced */
+  
+
+  /* Footer section titles */
+  .site-footer h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #f0c040;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* Navigation lists */
+  .footer-links ul,
+  .companys ul,
+  .footer-contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li,
+  .companys li,
+  .footer-contact p {
+    margin-bottom: 10px;
+    color: #ccc;
+  }
+
+  .footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover,
+  .footer-links a:focus {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  /* Company list styling */
+  .companys ul li {
+    font-weight: 500;
+  }
+
+  /* Footer contact icons and spacing */
+  .footer-contact p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #ccc;
+  }
+
+  .footer-contact p i {
+    color: #f0c040;
+    min-width: 18px;
+    font-size: 16px;
+  }
+
+  /* Responsive stack on smaller screens */
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    /* Optional: center-align contact info on small screens */
+    .footer-contact p {
+      justify-content: center;
+    }
+
+    /* Optional: center text on all footer sections */
+    .footer-links, .companys, .footer-contact, .footer-about {
+      text-align: center;
+    }
+  }
+
+  /* Footer bottom bar (copyright) */
+  .footer-bottom {
+    border-top: 1px solid #444;
+    margin-top: 30px;
+    padding-top: 15px;
+    font-size: 14px;
+    color: #aaa;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    user-select: none;
+    /* Ensure it's always below footer container */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Optional: add some subtle fade or appearance effect */
+  .footer-bottom p {
+    margin: 0;
+  }
+
+  .service-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+  }
+
+  .service-links a {
+      background-color: #f1f1f1;
+      color: #333;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .service-links a:hover {
+      background-color: #007bff;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+
+  .service-links a.active {
+      background-color: #0056b3;
+      color: white;
+  }
+
+
+
+	/* ...keep your footer and features-container CSS as is... */
+
+  </style>
+</head>
+<body>
+
+	<div th:replace="~{fragments/header :: header}"></div>
+	    
+	   
+
+
+	<div class="grid-container">
+	  <div class="product-box">
+	    <img th:src="@{/images/ac1.webp}" alt="AC Service">
+	    <button class="btn btn-primary" onclick="location.href='/ac_services'">AC Service</button>
+	  </div>
+	  <div class="product-box">
+	    <img th:src="@{/images/wm.jpg}" alt="Washing Machine">
+	    <button class="btn btn-primary" onclick="location.href='/wm_services'">WASHING MC Service</button>
+	  </div>
+	  <div class="product-box">
+	    <img th:src="@{/images/tv.jpg}" alt="TV Service">
+	    <button class="btn btn-warning" onclick="location.href='/tv'">TV Service</button>
+	  </div>
+	  <div class="product-box">
+	    <img th:src="@{/images/wf.webp}" alt="Water Purifier">
+	    <button class="btn btn-warning" onclick="location.href='/waterpure'">Water Purifier Service</button>
+	  </div>
+	  <div class="product-box">
+	    <img th:src="@{/images/fd.webp}" alt="Fridge Service">
+	    <button class="btn btn-warning" onclick="location.href='/fridge'">Fridge Service</button>
+	  </div>
+	</div>
+
+
+<hr>
+<h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-8">Why Choose Us</h1>
+
+<div class="features-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">Genuine Service</h3>
+    <p class="text-gray-700 mt-3">We deliver reliable and professional repair services for all appliances.</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">Genuine Spare Parts</h3>
+    <p class="text-gray-700 mt-3">We use original and quality spare parts to ensure durability and performance.</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">On-Time Service</h3>
+    <p class="text-gray-700 mt-3">We value your time and provide timely door-step service appointments.</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">Local Technicians</h3>
+    <p class="text-gray-700 mt-3">Quickly connect with skilled and verified technicians near your location.</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">Affordable Pricing</h3>
+    <p class="text-gray-700 mt-3">We offer competitive pricing with no hidden charges. Transparent and fair cost.</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">Smart Replacement</h3>
+    <p class="text-gray-700 mt-3">We replace parts only when they are irreparable—saving your money and time.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>About Us</h3>
+      <p>We provide trusted AC, Washing Machine, TV, and Fridge repair services using genuine parts and experienced technicians. Customer satisfaction is our priority.</p>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="@{/}">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Book Now</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="companys">
+      <h3>List of Companies</h3>
+      <ul>
+        <li>LG</li>
+        <li>Voltas</li>
+        <li>Blue Star</li>
+        <li>Daikin</li>
+        <li>Others...</li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact Us</h3>
+      <p><i class="fas fa-map-marker-alt"></i> Yellamachili, Andhra Pradesh</p>
+      <p><i class="fas fa-phone-alt"></i> 9010950284</p>
+      <p><i class="fas fa-envelope"></i> pillasandeep03@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 AC Services | All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>

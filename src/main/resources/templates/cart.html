@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>My Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .cart-container {
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+	.back-link {
+	    display: inline-block;
+	    margin: 15px;
+	    padding: 8px 12px;
+	    background-color: #007bff;
+	    color: white;
+	    text-decoration: none;
+	    border-radius: 6px;
+	    transition: background-color 0.3s;
+	  }
+	  .back-link:hover {
+	    background-color: #0056b3;
+	  }
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #777;
+      font-size: 18px;
+      margin-top: 20px;
+    }	  .back-link {
+	      display: inline-block;
+	      margin: 30px auto;
+	      padding: 10px 20px;
+	      background-color: #007bff;
+	      color: white;
+	      text-decoration: none;
+	      border-radius: 6px;
+	      font-size: 16px;
+	      text-align: center;
+	      transition: background-color 0.3s;
+	    }
+
+	    .back-link:hover {
+	      background-color: #0056b3;
+	    }
+
+	    /* Center wrapper */
+	    .center-container {
+	      text-align: center;
+	    }
+		.checkout-btn {
+		    background-color: green;
+		    color: white;
+		    padding: 12px 20px;
+		    border: none;
+		    border-radius: 6px;
+		    font-size: 16px;
+		    cursor: pointer;
+		  }
+
+		  .checkout-btn:hover {
+		    background-color: darkgreen;
+		  }
+
+  </style>
+</head>
+<body>
+  <div class="cart-container">
+    <h2>Your Cart</h2>
+
+    <table th:if="${#lists.size(cartItems) > 0}">
+      <thead>
+        <tr>
+          <th>Service Name</th>
+          <th>Price</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${cartItems}">
+          <td th:text="${item.servicename}"></td>
+          <td th:text="${item.price} + ' ₹'"></td>
+          <td>
+            <form th:action="@{/removeFromCart}" method="post">
+              <input type="hidden" name="serviceName" th:value="${item.servicename}" />
+              <input type="hidden" name="price" th:value="${item.price}" />
+              <button type="submit" class="delete-btn">🗑</button>
+            </form>
+          </td>
+        </tr>
+		<tr>
+		  <td colspan="2"><strong>Total Amount</strong></td>
+		  <td><strong th:text="'₹' + ${totalamount}"></strong></td>
+		</tr>
+		<tr>
+		  <td colspan="3" style="text-align: center;">
+		    <form th:action="@{/checkout}" method="post">
+		      <button type="submit" class="checkout-btn">🛒 Proceed to Checkout</button>
+		    </form>
+		  </td>
+		</tr>
+
+      </tbody>
+    </table>
+
+    <div class="empty-message" th:if="${#lists.size(cartItems) == 0}">
+      Your cart is empty 🛒
+    </div>
+	
+
+  </div>
+  <div class="center-container">
+    <a href="javascript:history.back()" class="back-link">← Back to Previous Page</a>
+  </div>
+
+</body>
+</html>

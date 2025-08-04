@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            background-color: white;
+            padding: 30px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .message {
+            color: green;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Checkout Form</h2>
+
+    <!-- Show error if present -->
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <!-- Show success message if present -->
+    <div th:if="${message}" class="message" th:text="${message}"></div>
+
+    <form th:action="@{/checkout}" method="post" th:object="${booking}">
+        <label for="name">Customer Name</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required />
+
+        <label for="alternatePhoneNumber">Alternate Phone Number</label>
+        <input type="text" id="sphonenumber" th:field="*{sphonenumber}" placeholder="Enter alternate number" required />
+
+        <label for="fixedLocation">Select Nearby Area</label>
+        <select id="fixedLocation" onchange="updateAddress()" class="form-select">
+            <option value="">-- Select an area --</option>
+            <option value="Yellamachili">Yellamachili</option>
+            <option value="Kothapalem">Kothapalem</option>
+            <option value="Mangalagiri">Mangalagiri</option>
+            <option value="Tenali">Tenali</option>
+            <option value="Guntur">Guntur</option>
+        </select>
+		<label for="address">Full Address</label>
+		<textarea id="address" th:field="*{address}" rows="3" placeholder="Enter your full address" required></textarea>
+
+       
+        <label for="landmark">Landmark</label>
+        <input type="text" id="landmark" th:field="*{landmark}" placeholder="Nearby landmark" required />
+
+        <button type="submit" class="btn">Confirm Booking</button>
+    </form>
+</div>
+
+<script>
+    function updateAddress() {
+        const dropdown = document.getElementById('fixedLocation');
+        const addressField = document.getElementById('address');
+        const selectedLocation = dropdown.value;
+
+        if (selectedLocation) {
+            addressField.value = selectedLocation + ", ";
+        }
+    }
+</script>
+</body>
+</html>

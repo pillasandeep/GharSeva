@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Book expert AC repair and installation services in Yellamanchili. Affordable prices, quick service, and trusted technicians. Call now!">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Use Thymeleaf's resource resolver for linked CSS/JS and static assets -->
+  <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}">
+  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js}"></script>
+  <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/style1.css}">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+</head>
+<body>
+    <div class="container">
+		<!-- Error Message Display -->
+		
+
+
+        <!-- Customer Login Form -->
+        <form th:action="@{/login1}" method="post" th:object="${customer}">
+            <h2>Customer Login</h2>
+			<div th:if="${error != null and !#strings.isEmpty(error)}" style="color: red; font-weight: bold; margin-bottom: 10px;">
+			    <p th:text="${error}"></p>
+			</div>
+            <input type="text" th:field="*{phonenumber}" placeholder="Phone Number" required />
+            <input type="password" th:field="*{password}" placeholder="Password" required/>
+            <div class="error" th:if="${customerLoginError}" th:text="${customerLoginError}"></div>
+
+            <button type="submit">Login</button>
+            <a th:href="@{/register}">Are You New User?</a>
+        </form>
+
+      
+    </div>
+</body>
+</html>

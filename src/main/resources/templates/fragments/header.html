@@ -1,0 +1,35 @@
+  <!-- New: Button wrapper for alignment -->
+  <div th:fragment="header" class="header">
+    <div class="logo-container">
+      <img th:src="@{/images/logo.jpg}" alt="Logo" class="image-style">
+      <span class="site-title">CoolTech AC Services</span>
+
+      <span class="phone-highlight">
+        <a href="tel:9010950284">
+          <i class="fas fa-phone-alt"></i> 9010950284
+        </a>
+      </span>
+    </div>
+
+    <!-- 🔗 Service Quick Navigation -->
+    <div class="service-links">
+      <a th:href="@{/ac_services}">AC</a>
+      <a th:href="@{/wm_services}">Washing Machine</a>
+      <a th:href="@{/fridge}">Fridge</a>
+      <a th:href="@{/tv}">TV</a>
+      <a th:href="@{/waterpure}">Water Purifier</a>
+    </div>
+
+    <!-- 🔘 Cart/Profile Buttons -->
+    <div class="header-actions">
+      <button class="my-button cart-button" title="Cart" onclick="location.href='/cart'">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" th:if="${cartCount > 0}" th:text="${cartCount}">0</span>
+      </button>
+      
+      <button class="my-button" title="Profile" onclick="location.href='/profile'">
+        <i class="fas fa-user"></i>
+      </button>
+    </div>
+  </div>
+</div>
