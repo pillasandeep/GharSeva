@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Webapp.Entity.AdminEntity;
 import com.example.Webapp.Entity.BookingEntity;
@@ -22,8 +23,12 @@ public class AdminDashBoardController {
 	{
 		if(session.getAttribute("admin")!=null)
 		{
-			List<BookingEntity>service=adminservice.todayBookings(LocalDate.now());
-			model.addAttribute("todaysBookings", service);
+			List<BookingEntity>pending=adminservice.todayBookings(LocalDate.now(),"Pending");
+			model.addAttribute("todaysBookings", pending);
+			List<BookingEntity>assigned=adminservice.todayBookings(LocalDate.now(),"Assigned");
+			model.addAttribute("assignedBookings", assigned);
+			List<BookingEntity>completed=adminservice.todayBookings(LocalDate.now(),"Completed");
+			model.addAttribute("completedBookings", completed);
 			return "admindashboard";
 		}
 		else
@@ -68,5 +73,11 @@ public class AdminDashBoardController {
 		System.out.println(session.getAttribute("admin"));
 		session.invalidate();
 		return "redirect:/adminlogin";
+	}
+	@PostMapping("/changeState")
+	public String changeState(@RequestParam int id)
+	{
+		adminservice.moveToNextState(id);
+		return "redirect:/admindashboard";
 	}
 }

@@ -59,6 +59,7 @@ public class CheckOut {
 			book.setDate(LocalDate.now());
 			book.setTime(LocalTime.now());
 			book.setPrice(cart.getPrice());
+			book.setState("Pending");
 			bookrepo.save(book);
 			
 		}

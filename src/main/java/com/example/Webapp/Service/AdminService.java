@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+
 import com.example.Webapp.Entity.AdminEntity;
 import com.example.Webapp.Entity.BookingEntity;
 import com.example.Webapp.Repository.AdminRepository;
@@ -36,9 +37,34 @@ public class AdminService {
 	        return new ArrayList<>(); // Nothing provided
 	    }
 	}
-	public List<BookingEntity> todayBookings(LocalDate date)
+	public List<BookingEntity> todayBookings(LocalDate date,String state)
 	{
-		return bookrepo.findByDate(date);
+		return bookrepo.findByDateAndState(date,state);
+	}
+	public List<Object[]> getMonthlyCatReport(int month,int year)
+	{
+		return bookrepo.getMonthlyReport(month,year);
+	}
+	public List<Object[]> getYearlyCatReport(int year)
+
+	{
+		return bookrepo.getYearlyCatReport(year);
+	}
+	public void moveToNextState(int id)
+	{
+		BookingEntity booking = bookrepo.findById(id);
+		switch (booking.getState()) {
+        case "Pending": booking.setState("Assigned"); break;
+        case "Assigned": booking.setState("Completed"); break;
+        case "Completed": break; // already done
+			}
+
+    bookrepo.save(booking);
+    //assigned records are fetch here
+    
+    
+    
+    
 	}
 
 }

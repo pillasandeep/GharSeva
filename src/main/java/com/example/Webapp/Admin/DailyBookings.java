@@ -1,3 +1,4 @@
+//dailywisereport fetch with date or phone number it's use for search particular user with date
 package com.example.Webapp.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import com.example.Webapp.Entity.BookingEntity;
 import com.example.Webapp.Service.AdminService;
 

@@ -34,6 +34,8 @@ public class BookingEntity {
 	private LocalTime time;
 	@Column
 	private int price;
+	@Column
+	private String state;
 	public int getPrice() {
 		return price;
 	}
@@ -56,7 +58,7 @@ public class BookingEntity {
 		super();
 	}
 	public BookingEntity(String servicename, String name, String address, String landmark, String phonenumber,
-			String sphonenumber,int price) {
+			String sphonenumber,int price,String state) {
 		super();
 		this.servicename = servicename;
 		this.name = name;
@@ -66,6 +68,7 @@ public class BookingEntity {
 		this.phonenumber = phonenumber;
 		this.sphonenumber = sphonenumber;
 		this.price=price;
+		this.state=state;
 	}
 	public long getId() {
 		return id;
@@ -108,6 +111,12 @@ public class BookingEntity {
 	}
 	public void setSphonenumber(String sphonenumber) {
 		this.sphonenumber = sphonenumber;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 	

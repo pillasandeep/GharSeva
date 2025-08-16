@@ -4,34 +4,55 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
 @Table(name = "Customer")
 public class CustomerEntity {
 
-   
-    @Column
+	@NotBlank(message = "Name is required")
+    @Size(min = 2, max = 16, message = "Name must be 2–16 characters")
+    @Column(length = 50, nullable = false)
     private String name;
 
     @Id
-   
+    @NotBlank(message = "Phone number is required")
+    @Pattern(regexp = "\\d{10}", message = "Phone must be 10 digits")
+    @Column(length = 10, nullable = false, unique = true)
     private String phonenumber;
 
-   
-    @Column
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 16, message = "Password must be 6–30 characters")
+    @Column(nullable = false)
     private String password;
 
-    public CustomerEntity() {
-    }
+    @Transient
+    private String confirmpassword;
 
-    public CustomerEntity(String name, String phonenumber, String password) {
+    public CustomerEntity() {}
+
+    public CustomerEntity(String name, String phonenumber, String password, String cp) {
         this.name = name;
         this.phonenumber = phonenumber;
         this.password = password;
+        this.confirmpassword = cp;
     }
 
-    // Getters and Setters
+   
+
+    public String getConfirmpassword() {
+		return confirmpassword;
+	}
+
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
+	}
+
+	// Getters and Setters
     public String getName() {
         return name;
     }

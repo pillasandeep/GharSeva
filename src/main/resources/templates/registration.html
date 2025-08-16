@@ -192,21 +192,24 @@
 </head>
 <body>
 
-    <form th:action="@{/register}" th:object="${customer}" method="post">
-        <h2>Register</h2>
+	<form th:action="@{/register}" th:object="${customer}" method="post">
+	    <h2>Register</h2>
 
-        <input type="text" th:field="*{name}" placeholder="Name" />
-       
+	    <input type="text" th:field="*{name}" placeholder="Name" />
+	    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 
-        <input type="text" th:field="*{phonenumber}" placeholder="Phone Number" />
-       
+	    <input type="text" th:field="*{phonenumber}" placeholder="Phone Number" />
+	    <div class="error" th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"></div>
 
-        <input type="password" th:field="*{password}" placeholder="Password" />
+	    <input type="password" th:field="*{password}" placeholder="Password" />
+	    <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 
+	    <input type="password" th:field="*{confirmpassword}" placeholder="Confirm Password" />
+	    <div class="error" th:if="${#fields.hasErrors('confirmpassword')}" th:errors="*{confirmpassword}"></div>
 
-        <button type="submit">Register</button>
-		<a th:href="@{/login1}">Do have Account ? </a>
-    </form>
+	    <button type="submit">Register</button>
+	    <a th:href="@{/login1}">Already have an account?</a>
+	</form>
 	
 </body>
 </html>
