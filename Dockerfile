@@ -1,15 +1,12 @@
-# Use JDK 21 instead of 17
+# Stage 1: Build the JAR
+FROM maven:3.9.6-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run the JAR
 FROM openjdk:21-jdk-slim
-
-# Set working directory inside container
-ENV APP_HOME=/app
-WORKDIR $APP_HOME
-
-# Copy the JAR file and rename it to app.jar
-COPY target/Webapp-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose Spring Boot default port
+WORKDIR /app
+COPY --from=build /app/target/Webapp-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Run the app
-ENTRYPOINT ["java", "-jar", "Webapp-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
