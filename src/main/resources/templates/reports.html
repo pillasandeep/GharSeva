@@ -70,7 +70,9 @@
 
     <!-- Admin Navbar -->
     <div th:replace="fragments/admin_navbar :: sidebar"></div>
-
+	<a th:href="@{reportdownload}">
+	   <button>Download PDF</button>
+	</a>
     <div class="main-content">
         <h2 class="mb-4 text-primary">Booking Reports</h2>
 

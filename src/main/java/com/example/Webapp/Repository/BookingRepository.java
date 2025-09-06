@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 @Repository
 public interface BookingRepository extends JpaRepository<BookingEntity,Long> {
-	List<BookingEntity> findByPhonenumber(String phonenumber);
+	List<BookingEntity> findByPhonenumberOrderByDateDesc(String phonenumber);
 	List<BookingEntity> findByDateAndState(LocalDate date,String state);
 	List<BookingEntity> findByDate(LocalDate date);
 	BookingEntity findById(int id);
@@ -34,5 +34,5 @@ public interface BookingRepository extends JpaRepository<BookingEntity,Long> {
 		@Query("SELECT b.servicename, COUNT(b), SUM(b.price) FROM BookingEntity b WHERE YEAR(b.date) = :year GROUP BY b.servicename")
 		List<Object[]> getYearlyCatReport(@Param("year") int year);
 
-
+		List<BookingEntity> findByDateOrderByState(LocalDate date);
 }

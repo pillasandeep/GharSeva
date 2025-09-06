@@ -24,7 +24,7 @@
     <div class="header-actions">
       <button class="my-button cart-button" title="Cart" onclick="location.href='/cart'">
         <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count" th:if="${cartCount > 0}" th:text="${cartCount}">0</span>
+        <span class="cart-count" th:if="${cartItems > 0}" th:text="${cartItems}">0</span>
       </button>
       
       <button class="my-button" title="Profile" onclick="location.href='/profile'">

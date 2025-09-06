@@ -28,7 +28,7 @@ public class AdminService {
 	    if (date != null && (phone == null || phone.isEmpty())) {
 	        return bookrepo.findByDate(date);
 	    } else if ((date == null) && (phone != null && !phone.isEmpty())) {
-	        return bookrepo.findByPhonenumber(phone);
+	        return bookrepo.findByPhonenumberOrderByDateDesc(phone);
 	    } else if (date != null && phone != null && !phone.isEmpty()) {
 	        // Optional: if both are provided, you can choose what to do
 	        // You can either prioritize one or create a custom query
@@ -65,6 +65,10 @@ public class AdminService {
     
     
     
+	}
+	public List<BookingEntity> todayBookingsOrderByStatus(LocalDate date)
+	{
+		return bookrepo.findByDateOrderByState(date);
 	}
 
 }

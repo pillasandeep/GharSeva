@@ -21,6 +21,43 @@
 	  padding: 0;
 	  color: #333;
 	}
+	/* Common style for all statuses */
+	.status {
+	  display: inline-block;
+	  padding: 4px 10px;
+	  border-radius: 12px;
+	  font-weight: 600;
+	  font-size: 13px;
+	}
+
+	/* Pending = yellow */
+	.status-pending {
+	  background-color: #fff3cd;
+	  color: #856404;
+	  border: 1px solid #ffeeba;
+	}
+
+	/* Assigned = blue */
+	.status-assigned {
+	  background-color: #d1ecf1;
+	  color: #0c5460;
+	  border: 1px solid #bee5eb;
+	}
+
+	/* Completed = green */
+	.status-completed {
+	  background-color: #d4edda;
+	  color: #155724;
+	  border: 1px solid #c3e6cb;
+	}
+
+	/* Unknown = gray */
+	.status-unknown {
+	  background-color: #e2e3e5;
+	  color: #383d41;
+	  border: 1px solid #d6d8db;
+	}
+
  </style>
 </head>
 <body>
@@ -42,16 +79,25 @@
   <div class="container">
     <h3>Your Booking History:</h3>
     
-    <div class="list-group" th:if="${historyList}">
-      <div class="list-group-item" th:each="booking : ${historyList}">
-        <h4 class="list-group-item-heading" th:text="${booking.servicename}">AC Repair</h4>
-        <p class="list-group-item-text">
-          <strong>Date:</strong> <span th:text="${booking.date}">2025-08-01</span><br>
-          <strong>Price:</strong> ₹<span th:text="${booking.price}">499</span>
-        </p>
-      </div>
-    </div>
-    
+	<div class="list-group" th:if="${historyList}">
+	  <div class="list-group-item" th:each="booking : ${historyList}">
+	    <h4 class="list-group-item-heading" th:text="${booking.servicename}">AC Repair</h4>
+	    <p class="list-group-item-text">
+	      <strong>Date:</strong> <span th:text="${booking.date}">2025-08-01</span><br>
+	      <strong>Price:</strong> ₹<span th:text="${booking.price}">499</span><br>
+	      
+	      <!-- Status mapping -->
+		  <strong>Status:</strong>
+		  <span th:switch="${booking.state}">
+		    <span th:case="'Pending'" class="status status-pending">⏳ Waiting for Admin Action</span>
+		    <span th:case="'Assigned'" class="status status-assigned">🛠️ Assigned to Technician</span>
+		    <span th:case="'Completed'" class="status status-completed">✅ Service Completed</span>
+		    <span th:case="*" class="status status-unknown">ℹ️ Unknown Status</span>
+		  </span>
+	    </p>
+	  </div>
+	</div>
+
     <div th:if="${#lists.isEmpty(historyList)}" class="alert alert-info">
       No bookings found.
     </div>

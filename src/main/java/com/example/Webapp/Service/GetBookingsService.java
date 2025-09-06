@@ -14,6 +14,6 @@ public class GetBookingsService {
 	BookingRepository bookrepo;
 	public List<BookingEntity> getHistory(String phonenumber)
 	{
-		return bookrepo.findByPhonenumber(phonenumber);
+		return bookrepo.findByPhonenumberOrderByDateDesc(phonenumber);
 	}
 }

@@ -26,7 +26,7 @@ public class CustomerEntity {
     private String phonenumber;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 6, max = 16, message = "Password must be 6–30 characters")
+    @Size(min = 6, max = 60, message = "Password must be 6–30 characters")
     @Column(nullable = false)
     private String password;
 

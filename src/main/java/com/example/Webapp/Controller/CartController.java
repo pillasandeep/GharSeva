@@ -41,7 +41,7 @@ public class CartController {
     	return "redirect:/cart";
     	}
     	else {
-            // 🟡 Save current URL in session (the referer)
+           
             String referer = request.getHeader("Referer");
             session.setAttribute("redirectAfterLogin", referer);
             return "redirect:/login1";

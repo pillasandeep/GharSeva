@@ -13,6 +13,7 @@ import com.example.Webapp.Entity.CustomerEntity;
 import com.example.Webapp.Repository.CustomerRepository;
 import com.example.Webapp.Service.AdminService;
 import com.example.Webapp.Service.CustomerService;
+import com.example.Webapp.Service.PasswordEncryptService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,6 +27,8 @@ public class AuthenticationController {
 	CustomerService service;
 	@Autowired
 	AdminService adminservice;
+	@Autowired
+	PasswordEncryptService passwordservice;
 	@GetMapping("/register")
 	public String CustomerRegistration(Model model)
 	{
@@ -37,9 +40,11 @@ public class AuthenticationController {
 	}
 	@PostMapping("/register")
 	public String addCustomer(
-	        @Valid @ModelAttribute("customer") CustomerEntity customer,
+	        @Valid @ModelAttribute CustomerEntity customer,
 	        BindingResult result,
 	        Model model) {
+		//System.out.println("Called by forgot"+customer.getPassword()+customer.getPhonenumber());
+
 
 	    // Manual check for phone length (if not using @Pattern in entity)
 	    if (customer.getPhonenumber() == null || customer.getPhonenumber().length() != 10) {
@@ -55,7 +60,7 @@ public class AuthenticationController {
 	    if (result.hasErrors()) {
 	        return "registration"; // stays on register.html with error messages
 	    }
-
+	    customer.setPassword(passwordservice.rawPasswordToEncryptPassword(customer.getPassword()));
 	    // Save the customer
 	    repo.save(customer);
 
@@ -72,7 +77,11 @@ public class AuthenticationController {
 	@PostMapping("/login1")
 	public String LoginCustomer(@ModelAttribute CustomerEntity customer,Model model,HttpSession session)
 	{
-		boolean check=service.validateLogin(customer.getPhonenumber(),customer.getPassword());
+		
+	//	System.out
+		
+		boolean check=passwordservice.login(customer.getPhonenumber(),customer.getPassword());
+		//System.out.println("Password"+check);
 		//session.removeAttribute("cartItems");
 		session.setAttribute("phonenumber", customer.getPhonenumber());
 		if(check)
@@ -109,6 +118,20 @@ public class AuthenticationController {
 		session.invalidate();
 		
 		return "redirect:/login1";
+	}
+	@GetMapping("/forgotpassword")
+	public String loadForgotPasswordPage(Model model)
+	{
+		model.addAttribute("forgot",new CustomerEntity());
+		return "forgotpassword";
+	}
+	@PostMapping("/forgotpassword")
+	public String validateForgotPassword(@Valid @ModelAttribute CustomerEntity forgot,
+	        BindingResult result,
+	        Model model)
+	{
+		return addCustomer(forgot,result,model);
+		
 	}
 	
 }

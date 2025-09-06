@@ -59,14 +59,49 @@
         }
         .action-btn {
             min-width: 120px;
-        }
+        }			.page-title {
+			    margin: 20px 0;
+			    font-size: 26px;
+			    font-weight: 700;
+			    color: #212529;
+			    text-align: center;
+			    background: linear-gradient(135deg, #007bff, #00c6ff);
+			    -webkit-background-clip: text;
+			    -webkit-text-fill-color: transparent;
+			}
+
+			.page-title span {
+			    font-size: 20px;
+			    font-weight: 500;
+			    color: #495057;
+			}
+
+			/* Responsive */
+			@media (max-width: 768px) {
+			    .page-title {
+			        font-size: 22px;
+			    }
+			    .page-title span {
+			        display: block; /* date goes below on small screens */
+			        font-size: 18px;
+			        margin-top: 5px;
+			    }
+			}
+
+		
     </style>
 </head>
 <body>
 <!-- Sidebar -->
 <div th:replace="~{fragments/admin_navbar :: sidebar}"></div>
-<a th:href="@{logout1}">Log out</a>
-
+<!-- Top Navigation Buttons -->
+<a th:href="@{download}">
+   <button>Download PDF</button>
+</a>
+<h2 class="page-title">
+    Daily Bookings - 
+    <span th:text="${#temporals.format(T(java.time.LocalDate).now(), 'dd MMMM yyyy')}"></span>
+</h2>
 <div class="main-content">
 
     <!-- PENDING BOOKINGS -->
@@ -85,6 +120,7 @@
                     <th>Address / Landmark</th>
                     <th>Price (₹)</th>
                     <th>State</th>
+					<th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,6 +132,7 @@
                     <td th:text="${booking.servicename}"></td>
                     <td th:text="${booking.phonenumber}"></td>
                     <td th:text="${#temporals.format(booking.time, 'hh:mm a')}"></td>
+					
                     <td>
                         <div th:text="${booking.address}"></div>
                         <div class="text-muted small" th:text="${booking.landmark}"></div>
@@ -109,7 +146,7 @@
 					                        <!-- Pass the booking ID -->
 					                        <input type="hidden" name="id" th:value="${booking.id}">
 					                        <button type="submit" class="btn btn-primary btn-sm">
-					                            Next State
+					                            Assigned toTechnician
 					                        </button>
 					                    </form>
 					                </td>

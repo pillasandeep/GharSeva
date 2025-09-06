@@ -134,3 +134,29 @@
             background: linear-gradient(90deg, #6F4E37, #a47551 70%);
             transform: scale(1.05);
         }
+		/* Style for the bottom links in login form */
+		form a {
+		    display: inline-block;
+		    margin-top: 10px;
+		    margin-right: 15px;
+		    font-size: 14px;
+		    color: #007bff; /* light blue */
+		    text-decoration: none;
+		    transition: color 0.3s ease, text-decoration 0.3s ease;
+		}
+
+		form a:hover {
+		    color: #0056b3; /* darker blue on hover */
+		    text-decoration: underline;
+		}
+
+		/* Optional: align the links neatly */
+		form {
+		    text-align: center;
+		}
+
+		form button {
+		    display: block;
+		    width: 100%;
+		    margin: 10px 0 15px;
+		}

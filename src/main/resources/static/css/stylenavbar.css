@@ -119,3 +119,45 @@
 						        padding: 18px 6vw;
 						    }
 						}
+						.top-buttons {
+						    position: fixed;
+						    top: 15px;
+						    right: 20px;
+						    display: flex;
+						    gap: 12px;
+						    z-index: 1000;
+						}
+
+						/* Dashboard Button */
+						.btn-dashboard {
+						    background-color: #007bff;
+						    color: white;
+						    padding: 8px 18px;
+						    font-size: 15px;
+						    font-weight: 500;
+						    border-radius: 8px;
+						    text-decoration: none;
+						    transition: 0.3s ease;
+						}
+						.btn-dashboard:hover {
+						    background-color: #0056b3;
+						    text-decoration: none;
+						    color: white;
+						}
+
+						/* Logout Button */
+						.btn-logout {
+						    background-color: #dc3545;
+						    color: white;
+						    padding: 8px 18px;
+						    font-size: 15px;
+						    font-weight: 500;
+						    border-radius: 8px;
+						    text-decoration: none;
+						    transition: 0.3s ease;
+						}
+						.btn-logout:hover {
+						    background-color: #a71d2a;
+						    text-decoration: none;
+						    color: white;
+						}
