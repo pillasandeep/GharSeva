@@ -40,9 +40,21 @@ public class DailyBookings {
 	    LocalDate date = getbooking.getDate();
 	    String phone = getbooking.getPhonenumber();
 
-	    List<BookingEntity> dailyservices = adminservice.fetchRecords(date, phone);
+	    List<Object[]> dailyservices = adminservice.fetchRecordsWithTechnician(date, phone);
+	   // List<Object[]> results = bookingRepository.findBookingsWithTechnician(date);
+
+	    for (Object[] row : dailyservices) {
+	        BookingEntity bookings = (BookingEntity) row[0];  // cast the first element
+	        String technicianName = (String) row[1];         // cast the second element
+
+	        System.out.println("Booking ID: " + bookings.getId());
+	        System.out.println("Service Name: " + bookings.getServicename());
+	        System.out.println("Technician Name: " + technicianName);
+	    }
+
 
 	    model.addAttribute("bookings", dailyservices);
+	   // model.addAttribute("technicain, dailyservices)
 	    model.addAttribute("getbooking", getbooking); // re-bind the form input
 
 	    return "dailybookings"; // render this view

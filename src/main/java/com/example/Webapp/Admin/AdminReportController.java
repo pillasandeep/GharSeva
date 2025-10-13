@@ -122,7 +122,7 @@ public class AdminReportController {
 				        report1
 				    );
 		    }
-		    report1=null;
+		    report1.clear();
 		    	
 		}
 	

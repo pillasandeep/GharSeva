@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,26 +17,27 @@ public class BookingEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	@Column
+
 	private String servicename;
-	@Column
+
 	private String name;
-	@Column
+
 	private String address;
-	@Column
 	private String landmark;
-	@Column
 	private String phonenumber;
-	@Column
 	private String sphonenumber;
-	@Column
 	private LocalDate date;
-	@Column
 	private LocalTime time;
-	@Column
 	private int price;
-	@Column
 	private String state;
+	@OneToOne(mappedBy = "booking")
+	private TechBookingEntity techBooking;
+	public TechBookingEntity getTechnician() { 
+		return techBooking; 
+		}
+	public void setTechnician(TechBookingEntity technician) { 
+		this.techBooking = technician; 
+		}
 	public int getPrice() {
 		return price;
 	}

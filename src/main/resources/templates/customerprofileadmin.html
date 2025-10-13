@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer List</title>
+	<link rel="stylesheet" th:href="@{/css/stylenavbar.css}">
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.customer-page .main-content {
+			    margin-left: 270px; /* adjusted for fixed sidebar */
+			    padding: 20px;
+				height: 50%;
+			    background: #f6f8fa;
+			    min-height: 100vh;
+			}
+
+			.customer-page h2 {
+			    color: #23272b;
+			    margin-bottom: 20px;
+			}
+
+			.customer-page table {
+			    width: 100%;
+			    border-collapse: collapse;
+			    background: white;
+			    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+			    border-radius: 8px;
+			    overflow: hidden;
+			}
+
+			.customer-page th, .customer-page td {
+			    padding: 12px 15px;
+			    text-align: left;
+			}
+
+			.customer-page th {
+			    background: linear-gradient(90deg, rgb(0, 0, 64), rgb(0, 0, 64));
+			    color: white;
+			}
+
+			.customer-page tr:nth-child(even) {
+			    background: #f9f9f9;
+			}
+
+			.customer-page tr:hover {
+			    background: #f1f1f1;
+			}
+
+			.customer-page .pagination {
+			    display: flex;
+			    justify-content: center;
+			    margin-top: 20px;
+			}
+
+			.customer-page .pagination a, 
+			.customer-page .pagination span {
+			    padding: 8px 12px;
+			    border: 1px solid #ddd;
+			    border-radius: 5px;
+			    text-decoration: none;
+			    color: #3498db;
+			}
+
+			.customer-page .pagination a:hover {
+			    background: #3498db;
+			    color: white;
+			}
+
+			.customer-page .pagination .active {
+			    background: #3498db;
+			    color: white;
+			    border: none;
+			}
+
+			.customer-page form.page-size {
+			    display: flex;
+			    align-items: center;
+			    gap: 10px;
+			    margin-bottom: 20px;
+			}
+
+			.customer-page label {
+			    font-weight: bold;
+			}
+
+			.customer-page select, 
+			.customer-page input[type="date"], 
+			.customer-page input[type="text"], 
+			.customer-page input[type="number"] {
+			    padding: 8px;
+			    border-radius: 5px;
+			    border: 1px solid #ccc;
+			}
+
+			.customer-page select:focus, 
+			.customer-page input:focus {
+			    border-color: #3498db;
+			}
+
+			.customer-page button {
+			    background: #3498db;
+			    color: white;
+			    border: none;
+			    padding: 8px 16px;
+			    border-radius: 5px;
+			    cursor: pointer;
+			}
+
+			.customer-page button:hover {
+			    background: #2980b9;
+			}
+
+		</style>
+</head>
+	<body>
+		<div th:replace="~{fragments/admin_navbar :: sidebar}"></div>
+
+	    <div class="customer-page">
+	        <div class="main-content">
+				<h2>TOTAL CUSTOMERS COUNT: <span th:text="${totalcustomers}"></span></h2>
+
+	            <!-- Page Size Selection -->
+	            <form method="get" action="/customerprofile" class="page-size">
+	                <label for="size">Records per page:</label>
+	                <select name="size" id="size" onchange="this.form.submit()">
+	                    <option th:value="5" th:selected="${pageSize == 5}">5</option>
+	                    <option th:value="10" th:selected="${pageSize == 10}">10</option>
+	                    <option th:value="20" th:selected="${pageSize == 20}">20</option>
+	                </select>
+	                <input type="hidden" name="page" th:value="${currentPage ?: 0}">
+	            </form>
+
+	            <!-- Table -->
+	            <table>
+	                <tr>
+						
+	                    <th>Name</th>
+	                    <th>Phone</th>
+						
+	                </tr>
+	                <tr th:each="c : ${customer}">
+						
+	                    <td th:text="${c.name}"></td>
+	                    <td th:text="${c.phonenumber}"></td>
+						
+	                </tr>
+	            </table>
+
+	            <!-- Pagination -->
+	            <div class="pagination">
+	                <a th:if="${(currentPage ?: 0) > 0}"
+	                   th:href="@{customerprofile(page=${(currentPage ?: 0) - 1}, size=${pageSize ?: 5})}">Previous</a>
+
+	                <span th:each="i : ${#numbers.sequence(0, (totalPages ?: 1) - 1)}">
+	                    <a th:if="${i != (currentPage ?: 0)}"
+	                       th:href="@{customerprofile(page=${i}, size=${pageSize ?: 5})}"
+	                       th:text="${i + 1}"></a>
+	                    <span th:if="${i == (currentPage ?: 0)}" th:text="${i + 1}" class="active"></span>
+	                </span>
+
+	                <a th:if="${(currentPage ?: 0) < (totalPages ?: 1) - 1}"
+	                   th:href="@{customerprofile(page=${(currentPage ?: 0) + 1}, size=${pageSize ?: 5})}">Next</a>
+	            </div>
+	        </div>
+	    </div>
+	</body>
+
+</html>

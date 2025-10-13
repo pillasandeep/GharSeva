@@ -16,6 +16,29 @@
             color: #343a40;
             min-height: 100vh;
         }
+		.page-title {
+			position: absolute;
+			left :50%;
+			width:600px;
+		    font-size: 28px;
+		    font-weight: 700;
+		    color: #2c3e50;          /* Dark blue-gray */
+		    text-align: center;
+		    margin: 20px 0;
+		    padding: 10px;
+		    background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Light gradient */
+		    border-radius: 12px;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.page-title span {
+			
+		    color: #e67e22;          /* Highlighted date in orange */
+		    font-weight: 600;
+		    font-size: 22px;
+		    margin-left: 8px;
+		}
+
         .table-container {
             background-color: #fff;
             border-radius: 12px;
@@ -39,7 +62,7 @@
             background-color: #f8f9fa;
         }
         .section-title {
-            margin-top: 30px;
+            margin-top: 50px;
             font-size: 22px;
             font-weight: bold;
             color: #212529;
@@ -113,45 +136,49 @@
         <table class="table table-bordered table-striped table-hover align-middle">
             <thead>
                 <tr>
+					<th>Booking Id</th>
                     <th>Customer Name</th>
                     <th>Service Type</th>
-                    <th>Phone</th>
+                    <th>Extra Phone Number</th>
                     <th>Time</th>
                     <th>Address / Landmark</th>
                     <th>Price (₹)</th>
                     <th>State</th>
+					<th>Technician ID</th>
 					<th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr th:each="booking : ${todaysBookings}">
-                    <td>
-                        <div th:text="${booking.name}"></div>
-                        <div class="text-muted small" th:text="${booking.phonenumber}"></div>
-                    </td>
-                    <td th:text="${booking.servicename}"></td>
-                    <td th:text="${booking.phonenumber}"></td>
-                    <td th:text="${#temporals.format(booking.time, 'hh:mm a')}"></td>
-					
-                    <td>
-                        <div th:text="${booking.address}"></div>
-                        <div class="text-muted small" th:text="${booking.landmark}"></div>
-                    </td>
-                    <td class="text-right" th:text="${#numbers.formatInteger(booking.price, 0, 'COMMA')}"></td>
-                   <td th:text="${booking.state}">
-                        
-                    </td>
-					<td>
-					                    <form th:action="@{changeState}" method="post">
-					                        <!-- Pass the booking ID -->
-					                        <input type="hidden" name="id" th:value="${booking.id}">
-					                        <button type="submit" class="btn btn-primary btn-sm">
-					                            Assigned toTechnician
-					                        </button>
-					                    </form>
-					                </td>
-                </tr>
-            </tbody>
+			<tbody>
+			<tr th:each="booking : ${todaysBookings}">
+			    <form th:action="@{/changeState}" method="post">
+			        <td th:text="${booking.id}"></td>	
+			        <td>
+			            <div th:text="${booking.name}"></div>
+			            <div class="text-muted small" th:text="${booking.phonenumber}"></div>
+			        </td>
+			        <td th:text="${booking.servicename}"></td>
+			        <td th:text="${booking.phonenumber}"></td>
+			        <td th:text="${#temporals.format(booking.time, 'hh:mm a')}"></td>
+			        <td>
+			            <div th:text="${booking.address}"></div>
+			            <div class="text-muted small" th:text="${booking.landmark}"></div>
+			        </td>
+			        <td class="text-right" th:text="${#numbers.formatInteger(booking.price, 0, 'COMMA')}"></td>
+			        <td th:text="${booking.state}"></td>
+
+			        <!-- Technician ID + Submit button in the same row -->
+			        <td>
+			            <input type="number" name="techid" placeholder="Enter Technician Id" class="form-control form-control-sm" required>
+			        </td>
+			        <td>
+			            <input type="hidden" name="id" th:value="${booking.id}">
+			            <button type="submit" class="btn btn-primary btn-sm w-100">
+			                Assign to Technician
+			            </button>
+			        </td>
+			    </form>
+			</tr>
+			</tbody>
         </table>
     </div>
 
@@ -164,35 +191,38 @@
         <table class="table table-bordered table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>Customer Name</th>
-                    <th>Service Type</th>
-                    <th>Phone</th>
-                    <th>Time</th>
-                    <th>Address / Landmark</th>
-                    <th>Price (₹)</th>
-                    <th>Action</th>
+					<th>Booking Id</th>
+                    <th>Serviec Name</th>
+                    <th>Customer Name Type</th>
+                    <th>date</th>
+                    <th>Technicain Name</th>
+					<th>Action</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="booking : ${assignedBookings}">
-                    <td>
-                        <div th:text="${booking.name}"></div>
-                        <div class="text-muted small" th:text="${booking.phonenumber}"></div>
-                    </td>
-                    <td th:text="${booking.servicename}"></td>
-                    <td th:text="${booking.phonenumber}"></td>
-                    <td th:text="${#temporals.format(booking.time, 'hh:mm a')}"></td>
+					<td th:text="${booking[0]}"></td>	
+                    
+                    <td th:text="${booking[1]}"></td>
+                    <td th:text="${booking[2]}"></td>
+					<td th:text="${booking[3]}"></td>
+					<td th:text="${booking[4]}"></td>
+
+					
+                   <!-- <td th:text="${#temporals.format(booking.time, 'hh:mm a')}"></td>
                     <td>
                         <div th:text="${booking.address}"></div>
                         <div class="text-muted small" th:text="${booking.landmark}"></div>
                     </td>
-                    <td class="text-right" th:text="${#numbers.formatInteger(booking.price, 0, 'COMMA')}"></td>
+                    <td class="text-right" th:text="${#numbers.formatInteger(booking.price, 0, 'COMMA')}"></td>-->
                     <td>
                         <form th:action="@{changeState}" method="post">
-                            <input type="hidden" name="id" th:value="${booking.id}">
+                            <input type="hidden" name="id" th:value="${booking[0]}">
                             <input type="hidden" name="status" value="completed">
                             <button type="submit" class="btn btn-success action-btn">Mark as Completed</button>
                         </form>
+						
                     </td>
                 </tr>
             </tbody>
@@ -208,16 +238,27 @@
         <table class="table table-bordered table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>Customer Name</th>
+					<th>Booking Id</th>
+                    <th>Service Name</th>
                     <th>Service Type</th>
                     <th>Phone</th>
-                    <th>Time</th>
-                    <th>Address / Landmark</th>
-                    <th>Price (₹)</th>
+                    <th>Technicain Name</th>
+               
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="booking : ${completedBookings}">
+				
+				
+				<tr th:each="booking : ${completedBookings}">
+								<td th:text="${booking[0]}"></td>	
+				                   
+				                   <td th:text="${booking[1]}"></td>
+				                   <td th:text="${booking[2]}"></td>
+								<td th:text="${booking[3]}"></td>
+								<td th:text="${booking[4]}"></td>
+				</tr>
+              <!-- <tr th:each="booking : ${completedBookings}">
+					<td th:text="${booking.id}"></td>	
                     <td>
                         <div th:text="${booking.name}"></div>
                         <div class="text-muted small" th:text="${booking.phonenumber}"></div>
@@ -230,7 +271,7 @@
                         <div class="text-muted small" th:text="${booking.landmark}"></div>
                     </td>
                     <td class="text-right" th:text="${#numbers.formatInteger(booking.price, 0, 'COMMA')}"></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>

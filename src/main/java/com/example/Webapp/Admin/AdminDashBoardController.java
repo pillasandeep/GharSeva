@@ -10,22 +10,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 //import com.example.Webapp.Util.DownloadUtil;
 import com.example.Webapp.Entity.AdminEntity;
 import com.example.Webapp.Entity.BookingEntity;
+import com.example.Webapp.Entity.TechBookingEntity;
+import com.example.Webapp.Entity.TechnicianEntity;
+import com.example.Webapp.Repository.BookingRepository;
+import com.example.Webapp.Repository.TechBookingRepository;
+import com.example.Webapp.Repository.TechnicianRepository;
 import com.example.Webapp.Service.AdminService;
 import com.example.Webapp.Util.DownloadUtil;
 //import com.example.Webapp.Util.DownloadUtil;
-import com.lowagie.text.Document;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 
-import java.awt.Color;
-import java.io.IOException;
 import java.time.LocalDate;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,23 +28,39 @@ import java.util.*;
 public class AdminDashBoardController {
 //	@Autowired
 	AdminService adminservice;
-	AdminDashBoardController(AdminService admin)
+	TechBookingRepository techbookrepo;
+	TechnicianRepository techrepo;
+	BookingRepository bookrepo;
+//	@Autowired
+//	TechBookingEntity tech;
+	AdminDashBoardController(AdminService admin,
+							TechBookingRepository tech,
+							TechnicianRepository techrepo,
+							BookingRepository bookrepo
+							)
 	{
 		this.adminservice=admin;
+		this.techbookrepo=tech;
+		this.techrepo=techrepo;
+		this.bookrepo=bookrepo;
 	}
 	List<BookingEntity> pending;
-	List<BookingEntity> assigned;
-	List<BookingEntity> completed;
+	List<Object[]> assigned;
+	List<Object[]> completed;
 	@GetMapping("/admindashboard")
 	public String  LoadDashBoard(Model model,HttpSession session)
 	{
 		if(session.getAttribute("admin")!=null)
 		{
-			pending=adminservice.todayBookings(LocalDate.now(),"Pending");
+			pending=adminservice.todayBookingsDuplicate(LocalDate.now(),"Pending");
 			model.addAttribute("todaysBookings", pending);
 			assigned=adminservice.todayBookings(LocalDate.now(),"Assigned");
 			model.addAttribute("assignedBookings", assigned);
 			completed=adminservice.todayBookings(LocalDate.now(),"Completed");
+			for(Object i[]:completed)
+			{
+				System.out.println(i[0]+" "+i[1]+" "+i[4]);
+			}
 			model.addAttribute("completedBookings", completed);
 			return "admindashboard";
 		}
@@ -99,8 +108,25 @@ public class AdminDashBoardController {
 		return "redirect:/adminlogin";
 	}
 	@PostMapping("/changeState")
-	public String changeState(@RequestParam int id)
+	public String changeState(@RequestParam long id,
+							 @RequestParam long techid)
 	{
+
+		System.out.println(techid+" "+id);
+		  TechnicianEntity technician = techrepo.findById(techid)
+		            .orElseThrow(() -> new RuntimeException("Technician not found"));
+
+		        BookingEntity booking = bookrepo.findById(id);
+		        		if (booking == null) {
+		        		    throw new RuntimeException("Booking not found");
+		        		}
+		 TechBookingEntity techBooking = new TechBookingEntity();
+	        techBooking.setTechnician(technician);
+	        techBooking.setBooking(booking);
+	        techBooking.setStatus("Assigned");
+	        techBooking.setDate(LocalDate.now());
+	        techbookrepo.save(techBooking);
+		//techrepo.save();
 		adminservice.moveToNextState(id);
 		return "redirect:/admindashboard";
 	}

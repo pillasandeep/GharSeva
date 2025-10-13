@@ -165,25 +165,30 @@
 	    <table class="table table-bordered table-striped table-hover align-middle">
 	        <thead class="table-dark">
 	            <tr>
+					<th>Service Id</th>
+
 	                <th>Service Name</th>
 	                <th>Customer</th>
 	                <th>Phone</th>
 	                <th>Time</th>
 	                <th>Address</th>
 					<th>Price</th>
+					<th>Technician Name</th>
 	                <th class="text-end">Status</th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:each="booking : ${bookings}">
-	                <td th:text="${booking.servicename}">Service Name</td>
-	                <td th:text="${booking.name}">John Doe</td>
-	                <td th:text="${booking.phonenumber}">1234567890</td>
-	                <td th:text="${#temporals.format(booking.time, 'hh:mm a')}">10:30 AM</td>
-	                <td th:text="${booking.address}">Yellamanchili</td>
-	                <td class="text-end" th:text="${#numbers.formatInteger(booking.price, 0, 'COMMA')}">2,500</td>
-					<td th:text="${booking.state}">State</td>
-	            </tr>
+				<tr th:each="booking : ${bookings}">
+				    <td th:text="${booking[0].id}">99</td>
+				    <td th:text="${booking[0].servicename}">Service Name</td>
+				    <td th:text="${booking[0].name}">John Doe</td>
+				    <td th:text="${booking[0].phonenumber}">1234567890</td>
+				    <td th:text="${#temporals.format(booking[0].time, 'hh:mm a')}">10:30 AM</td>
+				    <td th:text="${booking[0].address}">Yellamanchili</td>
+				    <td class="text-end" th:text="${#numbers.formatInteger(booking[0].price, 0, 'COMMA')}">2,500</td>
+				    <td th:text="${booking[1]}">Yellamanchili</td>
+				    <td th:text="${booking[0].state}">State</td>
+				</tr>
 	        </tbody>
 	    </table>
 
