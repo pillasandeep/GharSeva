@@ -15,10 +15,12 @@ public class TechBookingEntity {
 
     @ManyToOne
     @JoinColumn(name = "technician_id", referencedColumnName = "id")
+    @JsonIgnore
     private TechnicianEntity technician;
 
     @OneToOne
     @JoinColumn(name = "booking_id", referencedColumnName = "id")
+    @JsonIgnore
     private BookingEntity booking;
 
     // ✅ New field to track service status

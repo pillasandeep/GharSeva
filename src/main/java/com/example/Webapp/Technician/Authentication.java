@@ -1,5 +1,4 @@
-package com.example.Webapp.Tech;
-import java.util.*;
+package com.example.Webapp.Technician;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,7 @@ public class Authentication {
 		return "tech_login";
 	}
 	@PostMapping("/techlogin")
-	@ResponseBody
+	
 	String loginPage(Model model,@ModelAttribute TechnicianEntity tech,HttpSession session)
 	
 	{
@@ -42,7 +41,7 @@ public class Authentication {
 		{
 			session.setAttribute("phonenumber",phone);
 			System.out.println(list.getName()+" "+list.getType());
-			return "login";
+			return "redirect:/DailyTechnician";
 		}
 		
 	}

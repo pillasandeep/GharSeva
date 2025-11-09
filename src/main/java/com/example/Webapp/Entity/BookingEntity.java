@@ -3,6 +3,8 @@ package com.example.Webapp.Entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class BookingEntity {
 	private int price;
 	private String state;
 	@OneToOne(mappedBy = "booking")
+	@JsonIgnore
 	private TechBookingEntity techBooking;
 	public TechBookingEntity getTechnician() { 
 		return techBooking; 
