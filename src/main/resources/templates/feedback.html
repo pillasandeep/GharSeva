@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback Form</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f8;
+        }
+
+        .container{
+            width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+            color:#333;
+        }
+
+        input, textarea{
+            width:100%;
+            padding:10px;
+            margin-top:8px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:14px;
+        }
+
+        textarea{
+            height:150px;   /* Large message box */
+            resize: vertical;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Give Your Feedback</h2>
+
+    <form th:action="@{/submit}" 
+          th:object="${feedback}" 
+          method="post">
+
+        <label>Name</label>
+        <input type="text" th:field="*{name}" required>
+
+        <label>Phone Number</label>
+        <input type="text" th:field="*{phone}" required>
+
+        <label>Your Feedback</label>
+        <!-- LARGE TEXT AREA -->
+        <textarea th:field="*{text}" 
+                  placeholder="Write your experience, suggestions, improvements..."></textarea>
+
+        <button type="submit">Submit Feedback</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

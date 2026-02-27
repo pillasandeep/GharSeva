@@ -29,6 +29,13 @@ public class AuthenticationController {
 	AdminService adminservice;
 	@Autowired
 	PasswordEncryptService passwordservice;
+	@GetMapping("/")
+	public String defaultLogin(Model model)
+	
+	{
+		model.addAttribute("customer",new CustomerEntity());
+		return "login1";
+	}
 	@GetMapping("/register")
 	public String CustomerRegistration(Model model)
 	{
