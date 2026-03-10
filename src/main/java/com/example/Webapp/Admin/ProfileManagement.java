@@ -23,14 +23,14 @@ public class ProfileManagement {
 	@Autowired
 	AdminService adminservice;
 	@Autowired 
-	BookingRepository custrepo;
+	CustomerRepository custrepo;
 	@GetMapping("/customerprofile")
 	public String  getCustomerProfile(@RequestParam(defaultValue = "0") int page,
 										@RequestParam(defaultValue ="10") int size,
 										Pageable pageable,
 										Model model)
 	{
-	Page<BookingEntity> list= custrepo.findAll(PageRequest.of(page,size));	
+	Page<CustomerEntity> list= custrepo.findAll(PageRequest.of(page,size));	
 	System.out.println(list);
 	model.addAttribute("totalcustomers",list.getTotalElements());
 	model.addAttribute("customer", list.getContent());

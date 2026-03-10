@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 
 import com.example.Webapp.Entity.FeedbackEntity;
-import com.example.Webapp.Repository.FeedbackRepository;
 
 @Controller
 public class FeedbackController {
